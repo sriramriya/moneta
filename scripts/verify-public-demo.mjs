@@ -32,6 +32,15 @@ try {
   assert.ok(local.budgets.length && local.goals.length);
   await page.locator('.bottom-nav').getByRole('button', { name: 'Transactions', exact: true }).tap();
   await page.getByText(name, { exact: true }).first().waitFor();
+  await page.getByRole('link', { name: 'About this demo', exact: true }).click();
+  await page.getByRole('heading', { name: 'Explore MONETA with sample data' }).waitFor();
+  await page.getByRole('link', { name: 'Return to the demo', exact: true }).click();
+  await page.locator('main h1').waitFor();
+  const legacy = await page.goto(new URL('/workspace', url).href);
+  assert.equal(legacy.status(), 200);
+  await page.getByRole('heading', { name: 'Personal accounts', exact: true }).waitFor();
+  assert.equal((await page.goto(new URL('/home.html', url).href)).status(), 200);
+  await page.locator('main h1').waitFor();
   const desktop = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
   const clean = await desktop.newPage();
   assert.equal((await clean.goto(url.href)).status(), 200);
@@ -42,7 +51,7 @@ try {
     const destination = new URL(request);
     return destination.origin === url.origin && !destination.pathname.startsWith('/api/');
   }));
-  console.log('PASS: signed-out mobile and desktop, sample add and reload, separate browser data, no API calls.');
+  console.log('PASS: signed-out mobile and desktop, sample add and reload, About this demo, legacy workspace and home links, separate browser data, no API calls.');
 } finally {
   await browser.close();
 }
