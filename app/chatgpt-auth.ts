@@ -1,12 +1,21 @@
 import {getPlatformUser} from '@moneta/auth';
 import {redirect} from 'next/navigation';
+import {isApprovalRequired} from '../lib/vercel/access-approval.mjs';
 export type ChatGPTUser={userId:string;displayName:string;email:string;fullName:string|null};
 const SIGN_IN_PATH='/signin-with-chatgpt',SIGN_OUT_PATH='/signout-with-chatgpt',CALLBACK_PATH='/callback';
 export async function getChatGPTUser():Promise<ChatGPTUser|null>{return getPlatformUser()}
 export async function requireChatGPTUser(
   returnTo: string,
 ): Promise<ChatGPTUser> {
-  const user = await getChatGPTUser();
+  let user: ChatGPTUser | null = null;
+  let pendingApproval = false;
+  try {
+    user = await getChatGPTUser();
+  } catch (error) {
+    if (!isApprovalRequired(error)) throw error;
+    pendingApproval = true;
+  }
+  if (pendingApproval) redirect('/access-pending');
   if (user) return user;
 
   redirect(chatGPTSignInPath(returnTo));

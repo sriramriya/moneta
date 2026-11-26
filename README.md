@@ -36,6 +36,10 @@ npm run check
 
 Production Clerk requires production keys and a domain you control. Production builds verify the database schema read-only. Review additive migrations before applying them. Provider verification and recovery scripts require explicit opt-in and dedicated synthetic fixtures.
 
+## Owner-approved accounts
+
+The Clerk production app requires the owner's approval before an account can use a personal workspace. New accounts wait at `/access-pending`. The owner approves or revokes them using server-managed private metadata in the Clerk dashboard. See [OWNER_ACCESS_SETUP.md](OWNER_ACCESS_SETUP.md) for setup and verification. Production authentication and an owned domain must be configured before a public account-based release.
+
 ## License status
 
 An application-wide redistribution license has not been selected. Public source visibility does not grant an MIT or other open-source license. Third-party components retain their own licenses. See THIRD_PARTY_NOTICES.md, LICENSE_AUDIT.md and audit/license-evidence/ for the existing notices and unresolved review items.
