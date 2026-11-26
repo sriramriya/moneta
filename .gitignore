@@ -1,0 +1,123 @@
+# Dependencies
+/node_modules/
+/.pnp
+.pnp.*
+# Keep authored Yarn tooling if the project adopts Yarn.
+/.yarn/*
+!/.yarn/patches/
+!/.yarn/plugins/
+!/.yarn/releases/
+!/.yarn/versions/
+
+# Generated builds and framework state
+/dist/
+/.next/
+/.vinext/
+/out/
+next-env.d.ts
+*.tsbuildinfo
+
+# Test output
+/coverage/
+
+# Package-manager logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Local environment and keys
+.env*
+!.env.example
+.dev.vars*
+*.pem
+
+# Checkout-local tool state
+/.wrangler/
+/.sites-runtime/
+
+# Workspace scaffolding and publication archives
+/.agents/
+/.codex/
+/outputs/
+/work/
+
+# OS metadata
+.DS_Store
+/.scaffold/
+!.env.example
+
+# Synthetic team test seed; never package runtime state
+/.moneta-team/
+# Private runtime/customer material (at any nesting depth)
+node_modules/
+.venv/
+venv/
+__pycache__/
+.pytest_cache/
+.cache/
+*.pyc
+*.pyo
+uploads/
+receipts/
+backups/
+customer-data/
+private-data/
+private-logs/
+logs/
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite3-wal
+*.sqlite3-shm
+*.dump
+*.dump.sql
+*.backup.sql
+*.bak
+*.log
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+*.jks
+*.keystore
+*.p8
+*.p7b
+*.p7c
+*.kdbx
+credentials.json
+service-account*.json
+*.tfstate
+*.tfstate.*
+.aws/
+.ssh/
+.npmrc.local
+/release/
+/releases/
+*.zip
+*.tar
+*.tgz
+*.tar.gz
+
+# Local verification pointers can contain absolute paths; retain license evidence
+/audit/PACKAGE_SCAN.json
+/audit/TEAM_PACKAGE_LATEST.json
+/audit/TEAM_EXTRACTION.json
+
+# Placeholder-only environment templates remain versioned
+!.env.example
+# Vercel local account links and generated multi-platform output
+/.vercel/
+/.output/
+.vercel
+.env*
+
+# Generated Vercel workspace asset
+/public/workspace-frame.html
+/public/vercel-home.html
+!.env.example

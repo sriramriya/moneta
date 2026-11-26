@@ -1,0 +1,1 @@
+CREATE INDEX `receipts_owner_transaction_idx` ON `receipts` (`owner`,`transaction_id`);

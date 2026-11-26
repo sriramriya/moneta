@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS workspaces (owner TEXT PRIMARY KEY, document TEXT NOT NULL, revision INTEGER NOT NULL DEFAULT 1, updated_at TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS feedback (id TEXT PRIMARY KEY, owner TEXT NOT NULL, message TEXT NOT NULL, created_at TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS request_limits (owner TEXT PRIMARY KEY, "window" BIGINT NOT NULL, count INTEGER NOT NULL);
+CREATE TABLE IF NOT EXISTS receipts (id TEXT PRIMARY KEY, owner TEXT NOT NULL, transaction_id TEXT NOT NULL, object_key TEXT NOT NULL, filename TEXT NOT NULL, mime TEXT NOT NULL, size INTEGER NOT NULL, created_at TEXT NOT NULL);
+CREATE INDEX IF NOT EXISTS receipts_owner_transaction_idx ON receipts(owner, transaction_id);
+CREATE TABLE IF NOT EXISTS receipt_purges (object_key TEXT PRIMARY KEY, owner TEXT NOT NULL, requested_at TEXT NOT NULL);
+CREATE INDEX IF NOT EXISTS receipt_purges_owner_idx ON receipt_purges(owner);
+CREATE TABLE IF NOT EXISTS receipt_uploads (id TEXT PRIMARY KEY, owner TEXT NOT NULL, transaction_id TEXT NOT NULL, generation TEXT NOT NULL, filename TEXT NOT NULL, size INTEGER NOT NULL, object_prefix TEXT NOT NULL, created_at TEXT NOT NULL, expires_at TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'pending', receipt_id TEXT);
+CREATE INDEX IF NOT EXISTS receipt_uploads_owner_idx ON receipt_uploads(owner);
+CREATE INDEX IF NOT EXISTS receipt_uploads_expiry_idx ON receipt_uploads(expires_at);

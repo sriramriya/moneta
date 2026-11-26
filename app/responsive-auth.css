@@ -1,0 +1,13 @@
+.auth-shell{box-sizing:border-box;width:100%;min-height:100dvh;display:grid;place-items:center;padding:max(20px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(20px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));background:#f3f6ef;color:#233d3b;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;overflow-wrap:anywhere}
+.auth-shell *{box-sizing:border-box;min-width:0}
+.auth-shell .cl-rootBox,.auth-shell .cl-cardBox{width:100%!important;max-width:28rem!important}
+.auth-shell .cl-card{width:100%;max-width:100%;padding:clamp(16px,4vw,32px)}
+.auth-shell :is(input,select,button){font-size:16px;min-height:44px;max-width:100%}
+.auth-shell :is(button,a){white-space:normal;overflow-wrap:anywhere}
+.auth-shell .cl-socialButtonsBlockButton{height:auto;min-height:44px}
+.auth-shell .cl-footerActionLink{display:inline-flex;min-height:44px;align-items:center}
+.auth-shell :focus-visible{outline:3px solid #177768;outline-offset:3px}
+.auth-shell>div{max-width:100%}
+.auth-shell>div>button{padding:12px 20px;border:1px solid #177768;border-radius:6px;background:#177768;color:white;margin-top:20px}
+.auth-shell h1{font-size:clamp(26px,4vw,34px);line-height:1.2}
+@media(prefers-reduced-motion:reduce){.auth-shell *{animation:none!important;transition:none!important}}

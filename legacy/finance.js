@@ -1,0 +1,5 @@
+export function cents(value){if(!/^\d+(\.\d{1,2})?$/.test(String(value)))throw Error('Enter a positive amount with up to two decimals.');const [a,b='']=String(value).split('.');const n=Number(a)*100+Number(b.padEnd(2,'0'));if(!Number.isSafeInteger(n)||n<=0)throw Error('Amount is outside the supported range.');return n}
+export function totals(rows){return rows.reduce((a,t)=>{if(t.type==='income')a.income+=t.amount;if(t.type==='expense')a.expense+=t.amount;return a},{income:0,expense:0})}
+export function balance(state,id){return state.transactions.reduce((n,t)=>n+(t.account===id?(t.type==='income'?t.amount:-t.amount):0)+(t.type==='transfer'&&t.to===id?t.amount:0),state.accounts.find(a=>a.id===id)?.opening||0)}
+export function spent(rows,category,start,end){return rows.filter(t=>t.type==='expense'&&t.category===category&&t.date>=start&&t.date<=end).reduce((n,t)=>n+t.amount,0)}
+export function csv(rows){const esc=v=>'"'+String(v??'').replaceAll('"','""').replace(/^[=+@-]/,"'$&")+'"';return ['Date,Description,Type,Category,Account,Amount,To',...rows.map(t=>[t.date,t.name,t.type,t.category,t.account,(t.amount/100).toFixed(2),t.to].map(esc).join(','))].join('\r\n')}

@@ -1,0 +1,46 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@/*": [
+        "./*"
+      ],
+      "@moneta/auth": [
+        "./lib/vercel/auth.ts"
+      ],
+      "@moneta/environment": [
+        "./lib/vercel/environment.ts"
+      ],
+      "@moneta/provider": [
+        "./lib/vercel/provider.tsx"
+      ],
+      "@moneta/middleware": [
+        "./lib/vercel/middleware.ts"
+      ],
+      "@moneta/workspace": [
+        "./lib/vercel/WorkspaceFrame.tsx"
+      ],
+      "@moneta/route": [
+        "./lib/vercel/route.ts"
+      ]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    ".scaffold",
+    ".next/dev",
+    "examples",
+    "dist",
+    ".vinext",
+    ".wrangler",
+    ".sites-runtime",
+    "outputs",
+    "work",
+    "db/index.ts",
+    "lib/platform-auth.ts",
+    "lib/platform-environment.ts",
+    "lib/platform-provider.tsx",
+    "lib/platform-middleware.ts",
+    "lib/platform-workspace.tsx"
+  ]
+}

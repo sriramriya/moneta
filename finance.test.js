@@ -1,0 +1,7 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {cents,totals,balance,spent,csv} from './legacy/finance.js';
+test('money uses integer minor units and rejects invalid inputs',()=>{assert.equal(cents('0.29'),29);assert.equal(cents('123.4'),12340);for(const v of ['0','-1','1.234','NaN','Infinity','1e3'])assert.throws(()=>cents(v))});
+test('transfers preserve total wealth and do not inflate cash flow',()=>{const s={accounts:[{id:'a',opening:10000},{id:'b',opening:0}],transactions:[{type:'transfer',account:'a',to:'b',amount:3000}]};assert.equal(balance(s,'a'),7000);assert.equal(balance(s,'b'),3000);assert.deepEqual(totals(s.transactions),{income:0,expense:0})});
+test('budgets respect category, type and inclusive dates',()=>{assert.equal(spent([{type:'expense',category:'Food',date:'2024-02-29',amount:20},{type:'income',category:'Food',date:'2024-02-29',amount:100},{type:'expense',category:'Food',date:'2024-03-01',amount:40}],'Food','2024-02-01','2024-02-29'),20)});
+test('empty and negative cash flow calculations',()=>{assert.deepEqual(totals([]),{income:0,expense:0});assert.deepEqual(totals([{type:'income',amount:20},{type:'expense',amount:50}]),{income:20,expense:50})});
+test('CSV escapes quotes and neutralizes spreadsheet formulas',()=>{const out=csv([{name:'=SUM(1,2)',date:'2026-01-01',amount:123,type:'expense',category:'a"b',account:'a'}]);assert.ok(out.includes("'="));assert.ok(out.includes('a""b'));assert.ok(out.includes('1.23'))});
+

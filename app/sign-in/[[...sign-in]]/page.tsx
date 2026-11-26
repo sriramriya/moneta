@@ -1,0 +1,2 @@
+import {SignIn} from '@clerk/nextjs';import {platformAuth} from '@moneta/auth';import {redirect} from 'next/navigation';
+export default function SignInPage(){if(platformAuth!=='clerk')redirect('/signin-with-chatgpt?return_to=%2Fworkspace');return <main className="auth-shell" style={{display:'grid',minHeight:'100dvh',placeItems:'center',background:'#f3f6ef'}}><SignIn routing="path" path="/sign-in" signUpUrl="/sign-up" forceRedirectUrl="/workspace"/></main>}

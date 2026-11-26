@@ -1,0 +1,5 @@
+# Preserve exact third-party license bytes and their recorded evidence hashes.
+audit/license-evidence/** -text -whitespace
+public/third-party-notices.txt -text -whitespace
+scripts/vite/*.LICENSE -text -whitespace
+vendor/*.LICENSE.md -text -whitespace

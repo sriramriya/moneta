@@ -1,0 +1,2 @@
+import fs from 'node:fs';import path from 'node:path';import {syntheticTeamSeed} from './team-fixtures.mjs';
+const directory=path.resolve('.moneta-team'),file=path.join(directory,'seed.json');fs.mkdirSync(directory,{recursive:true});try{fs.writeFileSync(file,JSON.stringify(syntheticTeamSeed(),null,2),{flag:'wx'});console.log('Created fictional seed at .moneta-team/seed.json. Run npm run team:dev. Existing files were not changed.')}catch(e){if(e.code==='EEXIST')throw Error('Seed file already exists; left unchanged. team:dev can reuse it.');throw e}
