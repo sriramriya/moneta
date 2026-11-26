@@ -8,7 +8,7 @@ const assets = [
   'style.css', 'enhancements.css', 'financial-workspace.css', 'responsive.css', 'simple-workspace.css',
   'responsive.js', 'core.js', 'demo-finance.js', 'interface-rules.js', 'ledger.js',
   'imports.js', 'record-operations.js', 'ui-icons.js', 'workspace-features.js',
-  'workspace-simple.js', 'xlsx.js', 'favicon.svg', 'third-party-notices.txt',
+  'workspace-simple.js', 'mona-engine.js', 'xlsx.js', 'favicon.svg', 'third-party-notices.txt',
 ];
 for (const name of assets) copyFileSync(join('public', name), join(out, name));
 
@@ -44,6 +44,9 @@ const workspace = (source.slice(0, apiStart)
   .replace('<a href="/workspace">Open personal workspace</a>', '<a href="/information.html#demo">About this demo</a>')
   .replace('<a href="/workspace">Continue with ChatGPT</a>', '<a href="/information.html#personal-workspace">About personal accounts</a>')
   .replaceAll('moneta-demo-v2', 'moneta-public-demo-v1')
+  .replaceAll('in this browser tab', 'in this browser')
+  .replaceAll('saved in this tab', 'saved in this browser')
+  .replaceAll('sample data in this tab', 'sample data in this browser')
   .replaceAll('sessionStorage', 'localStorage');
 writeFileSync(join(out, 'workspace.js'), workspace);
 

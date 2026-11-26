@@ -46,12 +46,30 @@ try {
   assert.equal((await clean.goto(url.href)).status(), 200);
   await clean.locator('main h1').waitFor();
   assert.equal(await clean.evaluate(() => localStorage.getItem('moneta-public-demo-v1')), null);
+  for (const width of [320, 768, 1440]) {
+  await clean.setViewportSize({ width, height: 1000 });
+  for (const route of ['Overview', 'Transactions', 'Accounts', 'Cards', 'Budget Planner', 'Savings Goals', 'Income & Salary', 'Investments', 'Debt Manager', 'Reports', 'Recovery', 'Import CSV', 'Settings']) {
+    await clean.goto(new URL('/#' + encodeURIComponent(route), url).href);
+    await clean.locator('main h1').waitFor();
+    const expected = { Overview: 'Hi, Alex.', 'Budget Planner': 'Budget', 'Savings Goals': 'Goals' }[route] || route;
+    assert.equal(await clean.locator('main h1').innerText(), expected);
+    assert.ok(await clean.evaluate(() => document.documentElement.scrollWidth <= innerWidth), route);
+  }
+  }
+  await page.getByRole('button', { name: 'Open Mona', exact: true }).click();
+  await page.locator('#chat-question').fill('Show my savings goals');
+  await page.locator('#chat-form button').click();
+  const answer = page.locator('.chat-message.assistant').last();
+  await answer.waitFor();
+  const text = await answer.innerText();
+  assert.doesNotMatch(text, /failed|error|fetch|404/i);
+  assert.match(text, /Emergency fund|Travel fund|Learning fund/);
   assert.deepEqual(errors, []);
   assert.ok(network.every(request => {
     const destination = new URL(request);
     return destination.origin === url.origin && !destination.pathname.startsWith('/api/');
   }));
-  console.log('PASS: signed-out mobile and desktop, sample add and reload, About this demo, legacy workspace and home links, separate browser data, no API calls.');
+  console.log('PASS: signed-out mobile and desktop, 13 routes at 320/768/1440px, Mona goals response, sample add and reload, About this demo, legacy workspace and home links, separate browser data, no API calls.');
 } finally {
   await browser.close();
 }
